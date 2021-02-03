@@ -1,0 +1,22 @@
+{
+	"name": "ST7920Emulator",
+	"version": "1.0.0",
+	"description": "Platform independent emulator library that parses ST7920 serial data and prints to external displays by invoking user supplied draw functions.",
+	"keywords": "ST7920, display, screen",
+	"repository":
+	{
+		"type": "git",
+		"url": "https://github.com/teeminus/ST7920Emulator.git"
+	},
+	"authors":
+	[
+		{
+			"name": "Christian Kehe",
+			"url": "https://www.buymeacoffee.com/teeminus",
+			"maintainer": true
+		}
+	],
+	"license": "GPLv3",
+	"frameworks": "*",
+	"platforms": "*"
+}
