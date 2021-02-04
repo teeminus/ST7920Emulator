@@ -21,39 +21,9 @@
 St7920Emulator::St7920Emulator(void (*fClearDisplay)(void), void (*fDrawByte)(uint8_t, uint8_t, uint8_t)) :
 fClearDisplay_(fClearDisplay),
 fDrawByte_(fDrawByte)
- {
-    // Init enums
-    lastCommand_  = CT_None;
-    dataTarget_   = DT_None;
-    syncByteType_ = SBT_None;
-
-    // Init byte decoding
-    ui8DataNibbleIdx_ = 0;
-    ui8DataByte_      = 0;
-
-    // Init variables set by commands
-    ui8EnableVerticalScroll_ = 0;
-    ui8ExtendedMode_         = 0;
-    ui8GraphicMode_          = 0;
-    ui8AddressX_             = 0;
-    ui8AddressY_             = 0;
-
-    // Init rams
-    for (uint8_t i = 0; i < 64; ++i) {
-        for (uint8_t j = 0; j < 2; ++j) {
-            pCgRam_[i][j] = 0;
-        }
-    }
-    for (uint8_t i = 0; i < 4; ++i) {
-        for (uint8_t j = 0; j < 32; ++j) {
-            pDdRam_[i][j] = 0;
-        }
-    }
-    for (uint8_t i = 0; i < 64; ++i) {
-        for (uint8_t j = 0; j < 16; ++j) {
-            pGdRam_[i][j] = 0;
-        }
-    }
+{
+    // Reset everything
+    reset(true);
 }
 
 void St7920Emulator::parseCommandByte() {
@@ -353,6 +323,47 @@ uint8_t St7920Emulator::parseSyncByte(uint8_t ui8Data) {
 
     // Not a sync byte
     return 0;
+}
+
+void St7920Emulator::reset(bool bClearDisplay) {
+    // Init enums
+    lastCommand_  = CT_None;
+    dataTarget_   = DT_None;
+    syncByteType_ = SBT_None;
+
+    // Init byte decoding
+    ui8DataNibbleIdx_ = 0;
+    ui8DataByte_      = 0;
+
+    // Init variables set by commands
+    ui8EnableVerticalScroll_ = 0;
+    ui8ExtendedMode_         = 0;
+    ui8GraphicMode_          = 0;
+    ui8AddressX_             = 0;
+    ui8AddressY_             = 0;
+
+    // Init rams
+    for (uint8_t i = 0; i < 64; ++i) {
+        for (uint8_t j = 0; j < 2; ++j) {
+            pCgRam_[i][j] = 0;
+        }
+    }
+    for (uint8_t i = 0; i < 4; ++i) {
+        for (uint8_t j = 0; j < 32; ++j) {
+            pDdRam_[i][j] = 0;
+        }
+    }
+    for (uint8_t i = 0; i < 64; ++i) {
+        for (uint8_t j = 0; j < 16; ++j) {
+            pGdRam_[i][j] = 0;
+        }
+    }
+
+    // Check if we shall clear the display area
+    if (bClearDisplay) {
+        // Clear display
+        fClearDisplay_();
+    }
 }
 
 void St7920Emulator::showByte(uint8_t x, uint8_t y) {

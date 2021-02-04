@@ -24,6 +24,7 @@ class St7920Emulator {
     public:
         St7920Emulator(void (*fClearDisplay)(void), void (*fDrawByte)(uint8_t, uint8_t, uint8_t));
         void parseSerialData(uint8_t ui8Data);
+        void reset(bool bClearDisplay);
 
     private:
         enum St7920SyncByteType {

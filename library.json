@@ -1,6 +1,6 @@
 {
 	"name": "ST7920Emulator",
-	"version": "1.0.1",
+	"version": "1.1",
 	"description": "Platform independent emulator library that parses ST7920 serial data and prints to external displays by invoking user supplied draw functions.",
 	"keywords": "ST7920, display, screen",
 	"repository":
